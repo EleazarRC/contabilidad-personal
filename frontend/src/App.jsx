@@ -9,7 +9,8 @@ import Forecasts from './pages/Forecasts';
 import Settings from './pages/Settings';
 import SavingsAccounts from './pages/SavingsAccounts';
 import Debts from './pages/Debts';
-import Budgets from './pages/Budgets';
+import BudgetConfig from './pages/BudgetConfig';
+import BudgetResults from './pages/BudgetResults';
 
 function DropdownMenu({ label, children, isActive }) {
   const [open, setOpen] = useState(false);
@@ -58,14 +59,15 @@ function Navbar() {
           <Link to="/transactions" className={isActive('/transactions')}>Transacciones</Link>
           <Link to="/savings" className={isActive('/savings')}>🏦 Ahorros</Link>
           <Link to="/debts" className={isActive('/debts')}>💳 Deudas</Link>
-          <Link to="/budgets" className={isActive('/budgets')}>📋 Presupuestos</Link>
-          <DropdownMenu label="📊 Informes" isActive={isAnyActive(['/monthly', '/annual'])}>
+          <DropdownMenu label="📊 Informes" isActive={isAnyActive(['/monthly', '/annual', '/budget-results'])}>
             <Link to="/monthly" className={isActive('/monthly')}>📅 Mensual</Link>
             <Link to="/annual" className={isActive('/annual')}>📆 Anual</Link>
+            <Link to="/budget-results" className={isActive('/budget-results')}>📋 Presupuestos</Link>
           </DropdownMenu>
           <Link to="/forecasts" className={isActive('/forecasts')}>Previsiones</Link>
-          <DropdownMenu label="⚙️ Configuración" isActive={isAnyActive(['/categories', '/settings'])}>
+          <DropdownMenu label="⚙️ Configuración" isActive={isAnyActive(['/categories', '/settings', '/budget-config'])}>
             <Link to="/categories" className={isActive('/categories')}>📂 Categorías</Link>
+            <Link to="/budget-config" className={isActive('/budget-config')}>📋 Presupuestos</Link>
             <Link to="/settings" className={isActive('/settings')}>🔧 Sistema</Link>
           </DropdownMenu>
         </nav>
@@ -85,7 +87,8 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/savings" element={<SavingsAccounts />} />
           <Route path="/debts" element={<Debts />} />
-          <Route path="/budgets" element={<Budgets />} />
+          <Route path="/budget-config" element={<BudgetConfig />} />
+          <Route path="/budget-results" element={<BudgetResults />} />
           <Route path="/forecasts" element={<Forecasts />} />
           <Route path="/monthly" element={<MonthlyReport />} />
           <Route path="/annual" element={<AnnualReport />} />
