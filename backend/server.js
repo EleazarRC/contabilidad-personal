@@ -19,6 +19,7 @@ app.use('/api/forecasts', require('./routes/forecasts'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/savings', require('./routes/savings'));
 app.use('/api/debts', require('./routes/debts'));
+app.use('/api/budgets', require('./routes/budgets'));
 
 // Ruta de prueba
 app.get('/api/health', (req, res) => {

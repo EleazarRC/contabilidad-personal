@@ -134,6 +134,29 @@ db.serialize(() => {
     )
   `);
 
+  // Tabla de presupuestos
+  db.run(`
+    CREATE TABLE IF NOT EXISTS budgets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL UNIQUE,
+      amount REAL NOT NULL DEFAULT 0,
+      color TEXT NOT NULL DEFAULT '#667eea',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  // Tabla de categorías asignadas a presupuestos
+  db.run(`
+    CREATE TABLE IF NOT EXISTS budget_categories (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      budget_id INTEGER NOT NULL,
+      category_id INTEGER NOT NULL,
+      FOREIGN KEY (budget_id) REFERENCES budgets(id),
+      FOREIGN KEY (category_id) REFERENCES categories(id),
+      UNIQUE(budget_id, category_id)
+    )
+  `);
+
   stmt.finalize();
 });
 

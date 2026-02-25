@@ -9,6 +9,7 @@ import Forecasts from './pages/Forecasts';
 import Settings from './pages/Settings';
 import SavingsAccounts from './pages/SavingsAccounts';
 import Debts from './pages/Debts';
+import Budgets from './pages/Budgets';
 
 function DropdownMenu({ label, children, isActive }) {
   const [open, setOpen] = useState(false);
@@ -57,6 +58,7 @@ function Navbar() {
           <Link to="/transactions" className={isActive('/transactions')}>Transacciones</Link>
           <Link to="/savings" className={isActive('/savings')}>🏦 Ahorros</Link>
           <Link to="/debts" className={isActive('/debts')}>💳 Deudas</Link>
+          <Link to="/budgets" className={isActive('/budgets')}>📋 Presupuestos</Link>
           <DropdownMenu label="📊 Informes" isActive={isAnyActive(['/monthly', '/annual'])}>
             <Link to="/monthly" className={isActive('/monthly')}>📅 Mensual</Link>
             <Link to="/annual" className={isActive('/annual')}>📆 Anual</Link>
@@ -83,6 +85,7 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/savings" element={<SavingsAccounts />} />
           <Route path="/debts" element={<Debts />} />
+          <Route path="/budgets" element={<Budgets />} />
           <Route path="/forecasts" element={<Forecasts />} />
           <Route path="/monthly" element={<MonthlyReport />} />
           <Route path="/annual" element={<AnnualReport />} />

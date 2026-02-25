@@ -12,6 +12,7 @@ yarn-error.log*
 dist/
 build/
 dist-electron/
+dist-electron2/
 
 # Environment
 .env

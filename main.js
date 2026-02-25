@@ -22,6 +22,7 @@ app.whenReady().then(() => {
       minWidth: 900,
       minHeight: 600,
       title: 'Contabilidad Personal',
+      icon: path.join(__dirname, 'icon.ico'),
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true
