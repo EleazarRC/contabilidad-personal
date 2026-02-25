@@ -105,7 +105,8 @@ exports.getDataStats = (req, res) => {
 
 // Descargar backup de la base de datos
 exports.backupDatabase = (req, res) => {
-  const dbPath = process.env.DB_PATH || './database.sqlite';
+  const dbDir = process.env.DB_DIR || '';
+  const dbPath = process.env.DB_PATH || path.join(dbDir, 'database.sqlite');
   const absolutePath = path.resolve(dbPath);
 
   if (!fs.existsSync(absolutePath)) {

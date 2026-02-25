@@ -1,7 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbPath = process.env.DB_PATH || './database.sqlite';
+// En Electron, DB_DIR apunta a userData (carpeta escribible del usuario)
+// En dev, usa DB_PATH o la carpeta actual
+const dbDir = process.env.DB_DIR || '';
+const dbPath = process.env.DB_PATH || path.join(dbDir, 'database.sqlite');
 const db = new sqlite3.Database(dbPath);
 
 // Inicializar tablas

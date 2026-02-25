@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const db = require('./config/database');
 
 const app = express();
@@ -10,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Rutas
+// Rutas API
 app.use('/api/categories', require('./routes/categories'));
 app.use('/api/transactions', require('./routes/transactions'));
 app.use('/api/stats', require('./routes/stats'));
@@ -24,11 +25,30 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'API funcionando correctamente' });
 });
 
-// Manejo de errores 404
-app.use((req, res) => {
-  res.status(404).json({ error: 'Ruta no encontrada' });
+// Servir frontend estático (producción / Electron)
+const frontendDist = process.env.FRONTEND_DIST || path.join(__dirname, '..', 'frontend', 'dist');
+app.use(express.static(frontendDist));
+
+// SPA catch-all: cualquier ruta que no sea /api → index.html
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'Ruta no encontrada' });
+  }
+  res.sendFile(path.join(frontendDist, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
+// Función para arrancar el servidor (usada por Electron)
+function startServer(port, callback) {
+  const p = port || PORT;
+  app.listen(p, () => {
+    console.log(`Servidor corriendo en puerto ${p}`);
+    if (callback) callback();
+  });
+}
+
+// Si se ejecuta directamente (no desde Electron), arrancar automáticamente
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = { app, startServer };

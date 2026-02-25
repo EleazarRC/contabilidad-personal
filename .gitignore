@@ -11,6 +11,7 @@ yarn-error.log*
 # Producción
 dist/
 build/
+dist-electron/
 
 # Environment
 .env

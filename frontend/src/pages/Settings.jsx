@@ -148,7 +148,7 @@ function Settings() {
           className="btn btn-primary"
           onClick={() => {
             const link = document.createElement('a');
-            link.href = 'http://localhost:3001/api/settings/backup';
+            link.href = '/api/settings/backup';
             link.download = '';
             link.click();
           }}
